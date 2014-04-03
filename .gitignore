@@ -1,0 +1,5 @@
+/src/apps/*/*.so
+/src/sqldb/libsqldb.so
+*.o
+*.swp
+/src/resow

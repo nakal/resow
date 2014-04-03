@@ -1,0 +1,13 @@
+# CREATE DATABASE resow CHARACTER SET = UTF8;
+
+USE resow;
+
+CREATE TABLE bindings (id INT PRIMARY KEY AUTO_INCREMENT, urlpath VARCHAR(256) NOT NULL UNIQUE, application VARCHAR(64) NOT NULL) CHARACTER SET = UTF8;
+INSERT INTO bindings (urlpath,application) VALUES ('/binder','binder');
+INSERT INTO bindings (urlpath,application) VALUES ('/setup','setup');
+
+CREATE TABLE appparams (id INT PRIMARY KEY AUTO_INCREMENT, urlpath VARCHAR(256) NOT NULL, application VARCHAR(64) NOT NULL, paramname VARCHAR(128) NOT NULL, paramvalue VARCHAR(512)) CHARACTER SET = UTF8;
+
+CREATE TABLE flatfs (service_root VARCHAR(512) NOT NULL, rel_url VARCHAR(512) NOT NULL, contenttype VARCHAR(64) NOT NULL, time TIMESTAMP NOT NULL, checksum CHAR(64), PRIMARY KEY (service_root, rel_url)) CHARACTER SET = UTF8;
+
+CREATE TABLE httplock (id INT PRIMARY KEY AUTO_INCREMENT, svcid VARCHAR(256) NOT NULL, srcid CHAR(64) NOT NULL UNIQUE, dstloc VARCHAR(256) DEFAULT NULL, srcloc CHAR(64) DEFAULT NULL, resloc CHAR(64) NOT NULL, tmout TIMESTAMP DEFAULT 0, deleted ENUM('y','n') NOT NULL DEFAULT 'n', new ENUM('y','n') NOT NULL DEFAULT 'y') CHARACTER SET = UTF8;
